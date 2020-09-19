@@ -11,10 +11,8 @@ export function Footer() {
   return(
     <View style={ styles.bottomView } >
       <Button type="outline" title="Log Out" onPress={logOut} />
-      <Button type="outline" title="Feed" onPress={() => navigation.navigate('Feed')}/>
+      <Button type="outline" title="Work Orders" onPress={() => navigation.navigate('Work Orders')}/>
       <Button type="outline" title="My Profile" onPress={() => navigation.navigate('Home')}/>
-      <Button type="outline" title="Friends" onPress={() => navigation.navigate('Friends')}/>
-      <Button type="outline" title="FP" onPress={() => navigation.navigate('Find People')}/>
       <Button type="outline" title="Create Post" onPress={() => navigation.navigate('Create Post')}/>
     </View>
   );

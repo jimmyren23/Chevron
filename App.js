@@ -7,8 +7,6 @@ import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 import {Footer} from './navigationBar';
 import {AddPostView} from './AddPostView';
-import {Friends} from './MyFriendsView';
-import {FindPeopleView} from './FindPeopleView';
 import firestore from '@react-native-firebase/firestore';
 
 const Stack = createStackNavigator();
@@ -111,11 +109,9 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Feed"
         screenOptions = {{ headerLeft: null, animationEnabled: false,  headerShown: false}}>
-          <Stack.Screen name="Feed" component={FeedView}/>
-          <Stack.Screen name="Friends" component={FriendsView} />
+          <Stack.Screen name="Work Orders" component={WorkOrderView}/>
           <Stack.Screen name="Create Post" component={CreatePostView} />
           <Stack.Screen name="Home" component={HomeView} />
-          <Stack.Screen name="Find People" component={FindPeopleView} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
@@ -123,7 +119,7 @@ const App = () => {
 };
 
 
-function FeedView({ navigation }) {
+function WorkOrderView({ navigation }) {
   const { user, logOut } = useAuth();
   const usersCollection = firestore().collection('Users');
   return (
@@ -170,30 +166,6 @@ function CreatePostView({ navigation }) {
   );
 }
 
-
-
-
-//Get a list of Friends, with each profile being accessible onTouch
-function FriendsView({ navigation }) {
-  const {user} = useAuth();
-  return (
-    <>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {user == null ? (
-            <LogInView />
-          ) : (
-            <>
-              <Friends/>
-              <Footer/>
-            </>
-
-          )}
-        </View>
-      </SafeAreaView>
-    </>
-  );
-}
 
 function HomeView({ navigation }) {
   const { user } = useAuth();

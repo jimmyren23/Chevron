@@ -3,7 +3,7 @@ import React from 'react';
 import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 
-export function FeedView() {
+export function WorkOrderView() {
   const { user, logOut } = useAuth();
   return (
     <SafeAreaView style={{flex: 1}}>
