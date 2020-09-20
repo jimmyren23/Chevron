@@ -7,10 +7,12 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 import {Footer} from './navigationBar';
+import {assignWorker} from './optimization.js';
 // The AddWorkOrderView is a button for adding Work Orders. When the button is pressed, an
 // overlay shows up to request user input for the new Work Order name. When the
 // "Create" button on the overlay is pressed, the overlay closes and the new
 // Work Order is created in the realm.
+
 export function AddWorkOrderView() {
   const [overlayVisible, setOverlayVisible] = useState(false);
   const [eqID, setEqID] = useState('');
@@ -18,6 +20,7 @@ export function AddWorkOrderView() {
   const [facility, setFacility] = useState('Fac1');
   const [priority, setPriority] = useState('');
   const [timeComp, setTimeComp] = useState('');
+  const [workers, setWorkers] = useState([]);
   const {user, logOut} = useAuth();
   const [error, setError] = useState();
   const navigation = useNavigation();
@@ -117,6 +120,7 @@ export function AddWorkOrderView() {
                   .then(() => {
                     console.log('New Work Order added!');
                   });
+                assignWorker();
                 navigation.navigate('Work Orders');
               } else {
                 console.log('wrong priority');
