@@ -53,7 +53,7 @@ const AuthProvider = ({children}) => {
       firestore()
       .collection('Users')
       .doc(email)
-      .set({
+      .set({    
         email: email,
         Following: [],
         Followers: [],
