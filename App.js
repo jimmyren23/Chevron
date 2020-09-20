@@ -14,8 +14,9 @@ import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 import {Footer} from './navigationBar';
 import {ProfileView} from './ProfileView';
-import {AddPostView} from './AddPostView';
+import {AddWorkOrderView} from './AddWorkOrderView';
 import {WorkOrderView} from './WorkOrderView';
+import {EditProfileView} from './EditProfile';
 import firestore from '@react-native-firebase/firestore';
 
 const Stack = createStackNavigator();
@@ -32,8 +33,9 @@ const App = () => {
             headerShown: false,
           }}>
           <Stack.Screen name="Work Orders" component={WorkOrderView} />
-          <Stack.Screen name="Create Post" component={CreatePostView} />
+          <Stack.Screen name="Create Work Order" component={AddWorkOrderView} />
           <Stack.Screen name="Profile" component={ProfileView} />
+          <Stack.Screen name="Edit Profile" component={EditProfileView} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
@@ -63,10 +65,8 @@ function WorkOrdersView({navigation}) {
 }
 
 //Separate page to add new post
-function CreatePostView({navigation}) {
+function CreateWorkOrderView({navigation}) {
   const {user} = useAuth();
-  const [newPostName, setNewPostName] = useState('');
-  const [newPostDescription, setNewPostDescription] = useState('');
 
   return (
     <>
@@ -76,7 +76,7 @@ function CreatePostView({navigation}) {
             <LogInView />
           ) : (
             <>
-              <AddPostView />
+              <AddWorkOrderView />
               <Footer />
             </>
           )}

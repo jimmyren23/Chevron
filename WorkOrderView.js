@@ -97,7 +97,6 @@ export function WorkOrderView() {
           <LogInView />
         ) : (
           <>
-            <Text> hellow sir {user.email} </Text>
             <WorkOrders />
             <Footer />
           </>

@@ -57,45 +57,64 @@ export function LogInView() {
       </Text>
       <Input
         autoCapitalize="none"
-        placeholder="email"
+        placeholder="Email"
         onChangeText={(text) => setEmail(text)}
         style={magicStyles.input}
       />
       <Input
         secureTextEntry={true}
         autoCapitalize="none"
-        placeholder="password"
+        placeholder="Password"
         onChangeText={setPassword}
         style={magicStyles.input}
       />
       {authMode === 'Register' ? (
         <>
+          <Text h4 style={magicStyles.topseg}>
+            Worker Information
+          </Text>
           <Input
             autoCapitalize="none"
             placeholder="First Name"
             value={firstName}
             onChangeText={(text) => setFirstName(text)}
+            style={magicStyles.input}
           />
           <Input
             autoCapitalize="none"
             placeholder="Last Name"
             value={lastName}
             onChangeText={(text) => setLastName(text)}
+            style={magicStyles.input}
+          />
+          <DropDownPicker
+            style={magicStyles.drop}
+            items={[
+              {label: 'Morning', value: 'Morning'},
+              {label: 'Evening', value: 'Evening'},
+            ]}
+            placeholder={'Select a Shift'}
+            containerStyle={{height: 40}}
+            itemStyle={{justifyContent: 'flex-start' }}
+            dropDownStyle={magicStyles.dropper}
+            onChangeItem={(item) => setShift(item.value)}
           />
           <Input
             autoCapitalize="none"
             placeholder="Longitude"
             defaultValue={longitude}
             onChangeText={(text) => setLongitude(text)}
+            style={magicStyles.input2}
           />
           <Input
             autoCapitalize="none"
             placeholder="Latitude"
             defaultValue={latitude}
             onChangeText={(text) => setLatitude(text)}
+            style={magicStyles.input}
           />
           <Button
-            title={'Get Location'}
+            title={'Find My Location'}
             buttonStyle={magicStyles.location}
             onPress={() => {
               Geolocation.requestAuthorization();
@@ -113,23 +132,10 @@ export function LogInView() {
               );
             }}
           />
-          <DropDownPicker
-            items={[
-              {label: 'Morning', value: 'Morning'},
-              {label: 'Afternoon', value: 'Afternoon'},
-              {label: 'Evening', value: 'Evening'},
-            ]}
-            defaultValue={'Morning'}
-            containerStyle={{height: 40}}
-            style={{backgroundColor: '#fafafa'}}
-            itemStyle={{
-              justifyContent: 'flex-start',
-            }}
-            dropDownStyle={{backgroundColor: '#fafafa'}}
-            onChangeItem={(item) => setShift(item.value)}
-          />
 
           <DropDownPicker
+            style={magicStyles.drop}
+            dropDownStyle={magicStyles.dropper}
             items={[
               {label: 'Conveyor', value: 'Conveyor'},
               {label: 'Seperator', value: 'Seperator'},
@@ -144,9 +150,9 @@ export function LogInView() {
             ]}
             multiple={true}
             multipleText="%d items have been selected."
+            placeholder={'Select your Certifications'}
             min={0}
             max={10}
-            defaultValue={''}
             containerStyle={{height: 40}}
             itemStyle={{
               justifyContent: 'flex-start',
@@ -202,8 +208,12 @@ export function LogInView() {
 }
 const magicStyles = StyleSheet.create({
   input: {
-    margin:10,
-    marginHorizontal: 40,
+    margin:-5,
+    marginHorizontal: 7,
+  },
+  input2: {
+    marginTop:15,
+    marginHorizontal: 7,
   },
   topseg: {
     textAlign: 'center', 
@@ -211,15 +221,17 @@ const magicStyles = StyleSheet.create({
     marginVertical: 20,
   },
   container: {
-    margin:15,
+    marginHorizontal: 15,
+    marginTop:10,
     justifyContent: 'center',
     borderRadius: 150,
     overflow: 'hidden',
     borderColor: '#3381CA',
     borderWidth: 0.5,
+
   },
   location: {
-    marginHorizontal: 140,
+    marginHorizontal: 110,
     marginBottom: 10,
     justifyContent: 'center',
     borderRadius: 500,
@@ -228,4 +240,12 @@ const magicStyles = StyleSheet.create({
     borderWidth: 0.5,
     backgroundColor: '#3381CA',
   },
+
+  drop: {
+    marginVertical: 1,
+    marginHorizontal: 6,
+  },
+  dropper:{
+    backgroundColor: '#fafafa',
+  }
 });
