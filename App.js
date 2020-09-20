@@ -13,12 +13,12 @@ import {AuthProvider} from './AuthProvider';
 import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 import {Footer} from './navigationBar';
+import {ProfileView} from './ProfileView';
 import {AddPostView} from './AddPostView';
 import {WorkOrderView} from './WorkOrderView';
 import firestore from '@react-native-firebase/firestore';
 
 const Stack = createStackNavigator();
-
 
 const App = () => {
   return (
@@ -33,7 +33,7 @@ const App = () => {
           }}>
           <Stack.Screen name="Work Orders" component={WorkOrderView} />
           <Stack.Screen name="Create Post" component={CreatePostView} />
-          <Stack.Screen name="Home" component={HomeView} />
+          <Stack.Screen name="Profile" component={ProfileView} />
         </Stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
@@ -77,26 +77,6 @@ function CreatePostView({navigation}) {
           ) : (
             <>
               <AddPostView />
-              <Footer />
-            </>
-          )}
-        </View>
-      </SafeAreaView>
-    </>
-  );
-}
-
-function HomeView({navigation}) {
-  const {user} = useAuth();
-  return (
-    <>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {user == null ? (
-            <LogInView />
-          ) : (
-            <>
-              <Text> Welcome!</Text>
               <Footer />
             </>
           )}

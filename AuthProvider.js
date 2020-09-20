@@ -14,7 +14,9 @@ const AuthProvider = ({children}) => {
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
-    if (initializing) setInitializing(false);
+    if (initializing) {
+      setInitializing(false);
+    }
   }
 
   useEffect(() => {
@@ -26,61 +28,74 @@ const AuthProvider = ({children}) => {
   // authentication provider to log in.
   logIn = (email, password) => {
     auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('User account created & signed in!');
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log('User account created & signed in!');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
 
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
 
-      console.error(error);
-    });
-  }
+        console.error(error);
+      });
+  };
 
   // The register function takes an email and password and uses the emailPassword
   // authentication provider to register the user.
-  createUser = (email, password) => {
+  createUser = (
+    email,
+    password,
+    shift,
+    firstName,
+    lastName,
+    certificates,
+    latitude,
+    longitude,
+  ) => {
     auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log('User account created & signed in!');
-      firestore()
-      .collection('Users')
-      .doc(email)
-      .set({    
-        email: email,
-        Following: [],
-        Followers: [],
-      })
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        console.log('User added to the collection!');
+        console.log('User account created & signed in!');
+        firestore()
+          .collection('workers')
+          .doc(firstName)
+          .set({
+            Certifications: certificates,
+            Location: new firestore.GeoPoint(
+              parseFloat(latitude),
+              parseFloat(longitude),
+            ),
+            Shift: shift,
+            Email: email,
+          })
+          .then(() => {
+            console.log('User added to the collection!');
+          });
+      })
+      .catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          console.log('That email address is already in use!');
+        }
+
+        if (error.code === 'auth/invalid-email') {
+          console.log('That email address is invalid!');
+        }
+
+        console.error(error);
       });
-    })
-    .catch(error => {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
-      console.error(error);
-    });
-  }
+  };
 
   // Log out the current user.
   logOut = () => {
     auth()
-    .signOut()
-    .then(() => console.log('User signed out!'));
-  }
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
 
   return (
     <AuthContext.Provider
