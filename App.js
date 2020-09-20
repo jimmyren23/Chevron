@@ -77,7 +77,7 @@ function CreateWorkOrderView({navigation}) {
           ) : (
             <>
               <AddWorkOrderView />
-              <Footer />
+              <Footer style={{marginBottom:10}}/>
             </>
           )}
         </View>

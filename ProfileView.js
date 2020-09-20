@@ -70,7 +70,7 @@ export function ProfileView() {
             <View>
               <FlatList
                 data={certifications}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => (
                   <View
                     style={{

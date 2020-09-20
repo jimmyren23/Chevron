@@ -43,14 +43,21 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     height: 50,
-    backgroundColor: '#FF9800',
+    backgroundColor: 'white',
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
   },
 
   textStyle: {
-    color: '#fff',
+    color: 'black',
     fontSize: 22,
   },
 });

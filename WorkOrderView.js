@@ -29,8 +29,8 @@ function WorkOrders() {
   }
   useEffect(() => {
     const subscriber = firestore()
-      .collection('sample work order')
-      .orderBy('Submission Timestamp', 'desc')
+      .collection('schedule')
+      .orderBy('Time', 'asc')
       .onSnapshot((querySnapshot) => {
         const orders = [];
         querySnapshot.forEach((documentSnapshot) => {
@@ -52,39 +52,49 @@ function WorkOrders() {
   }
 
   return (
-    <FlatList
-      data={orders}
-      renderItem={({item}) => (
-        <View elevation={9} style={surajStyles.container}>
-          <Text>Time: 12-2PM </Text>
-          <Text>
-            {' '}
-            Repair {item['Equipment Type']} at {item.Facility}{' '}
-          </Text>
-          <Button
-            title="Show Details ->"
-            onPress={() => {
-              toggleOverlay();
-              updateText(item);
-            }}
-          />
-          <Overlay
-            overlayStyle={{backgroundColor: 'black'}}
-            isVisible={visible}
-            onBackdropPress={toggleOverlay}>
-            <View
-              style={{
-                backgroundColor: 'white',
-                margin: 0,
-                padding: 20,
-                borderRadius: 10,
-              }}>
-              <Text> Equipment ID: {textdesc} </Text>
-            </View>
-          </Overlay>
-        </View>
-      )}
-    />
+    <>
+      <Text h1 style={magicStyles.topseg}>
+                View My Schedule
+      </Text>
+      <FlatList
+        data={orders}
+        renderItem={({item}) => (
+          <View elevation={9} style={surajStyles.container}>
+            <Text>Time: {item.Time} </Text>
+            <Text>
+              {' '}
+              Repair {item['Equipment Type']} at {item.Facility}{' '}
+            </Text>
+            <Button
+              title="Show Details ->"
+              onPress={() => {
+                toggleOverlay();
+                updateText(item);
+              }}
+            />
+            <Overlay
+              overlayStyle={{backgroundColor: 'lightblue', borderRadius:50, borderColor: 'black', borderWidth:1.5}}
+              isVisible={visible}
+              onBackdropPress={toggleOverlay}>
+              <View
+                style={{
+                  backgroundColor: 'lightblue',
+                  margin: 10,
+                  height: 200,
+                  width: 200,
+                }}>
+                <Text style={surajStyles.texter}>You've been assigned to repair Equipment ID: {textdesc} </Text>
+                <Text> </Text>
+                <Text style={surajStyles.texter}>Please complete task at the scheduled time </Text>
+                <Text> </Text>
+                <Text> </Text>
+                <Text style={surajStyles.texter}>Click anywhere to exit </Text>
+              </View>
+            </Overlay>
+          </View>
+        )}
+      />
+    </>
   );
 }
 
@@ -108,9 +118,9 @@ export function WorkOrderView() {
 
 const surajStyles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 120,
     flex: 1,
-    marginTop: 10,
+    marginTop: 25,
     marginHorizontal: 80,
     alignItems: 'center',
     justifyContent: 'center',
@@ -125,5 +135,58 @@ const surajStyles = StyleSheet.create({
     },
     shadowOpacity: 0.27,
     shadowRadius: 3,
+    color: 'white',
   },
+
+  texter: {
+    fontSize:20,
+    textAlign:'center',
+    justifyContent:'center',
+
+  },
+});
+
+const magicStyles = StyleSheet.create({
+  input: {
+    margin:-5,
+    marginHorizontal: 7,
+  },
+  input2: {
+    marginTop:15,
+    marginHorizontal: 7,
+  },
+  topseg: {
+    textAlign: 'center', 
+    fontWeight: 'bold', 
+    marginVertical: 20,
+    fontSize: 30,
+  },
+  container: {
+    marginHorizontal: 15,
+    marginTop:10,
+    justifyContent: 'center',
+    borderRadius: 150,
+    overflow: 'hidden',
+    borderColor: '#3381CA',
+    borderWidth: 0.5,
+
+  },
+  location: {
+    marginHorizontal: 110,
+    marginBottom: 10,
+    justifyContent: 'center',
+    borderRadius: 500,
+    overflow: 'hidden',
+    borderColor: '#3381CA',
+    borderWidth: 0.5,
+    backgroundColor: '#3381CA',
+  },
+
+  drop: {
+    marginVertical: 1,
+    marginHorizontal: 6,
+  },
+  dropper:{
+    backgroundColor: '#fafafa',
+  }
 });
