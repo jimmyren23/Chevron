@@ -1177,6 +1177,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/functions/-/functions-7.4.4.tgz#636528fea10d1d6c3703d491cca0fc5d9394ab61"
   integrity sha512-sAwtu8JaIDTpA+ip93Xao1IDF+aHkgsjaF2QfHWLRX8cF82KNKk00JF5r177YbGuoEeq9kY7a549MHrxJy/N6A==
 
+"@react-native-firebase/messaging@^7.8.6":
+  version "7.8.6"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-7.8.6.tgz#360cec3f7f6c405a6c1c0a955f16c7c664e27b12"
+  integrity sha512-sZ8Ygje573rJEMLgHIgrnDZ5H73xpLDXGOSGncQYzD+p4QxRqyBYVKLdbCkFqBjeHNXZw/GmRjtRh56DeqA+PQ==
+
 "@react-navigation/core@^5.12.3":
   version "5.12.3"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.12.3.tgz#0484fcca290569a0dc10b70b99f00edd3f1fd93c"
@@ -5760,6 +5765,11 @@ react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-overlay@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-overlay/-/react-native-overlay-0.5.0.tgz#68d44e2d643d896414e78cbe87aa336d831b0614"
+  integrity sha1-aNROLWQ9iWQU54y+h6ozbYMbBhQ=
 
 react-native-ratings@^7.2.0:
   version "7.3.0"

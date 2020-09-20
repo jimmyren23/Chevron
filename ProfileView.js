@@ -2,18 +2,18 @@ import {
   SafeAreaView,
   View,
   Text,
-  Button,
   ActivityIndicator,
   FlatList,
   StyleSheet,
 } from 'react-native';
+import {Button} from 'react-native-elements';
 import React, {useState, useEffect} from 'react';
 import {LogInView} from './LogInView';
 import {useAuth} from './AuthProvider';
 import {Footer} from './navigationBar';
 import firestore from '@react-native-firebase/firestore';
-import Overlay from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
+
 export function ProfileView() {
   const [loading, setLoading] = useState(true); // Set loading to true on component mount
   const [certifications, setCertifications] = useState([]); // Initial empty array of posts
@@ -46,56 +46,104 @@ export function ProfileView() {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={{flex: 1}}>
-        {user == null ? (
-          <LogInView />
-        ) : (
-          <>
-            <Text h1 style={magicStyles.topseg}>
-              {' '}
-              Hello {name}!{' '}
-            </Text>
-            <Text style={magicStyles.topseg}>
-              {' '}
-              Your chosen shifts: {shift}{' '}
-            </Text>
-            <Text style={magicStyles.topseg}>
-              {' '}
-              Your location (Latitude, Longitude): ({location.latitude},{' '}
-              {location.longitude})
-            </Text>
-            <Text h1 style={magicStyles.topseg}>
-              Certifications:
-            </Text>
-            <View>
-              <FlatList
-                data={certifications}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={({item}) => (
-                  <View
-                    style={{
-                      height: 50,
-                      flex: 1,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Text> {item} </Text>
-                  </View>
-                )}
-              />
-              <Button
-                style={magicStyles.container}
-                title="Edit Profile"
-                onPress={() => navigation.navigate('Edit Profile')}
-              />
-            </View>
-            <Footer />
-          </>
-        )}
-      </View>
+      {user == null ? (
+        <LogInView />
+      ) : (
+        <>
+          <Text h1 style={magicStyles.topseg}>
+            {' '}
+            Hello {name}!{' '}
+          </Text>
+          <Text style={magicStyles.topseg}> Your chosen shifts: {shift} </Text>
+          <Text style={magicStyles.topseg}>
+            {' '}
+            Your location (Latitude, Longitude): ({location.latitude},{' '}
+            {location.longitude})
+          </Text>
+          <Text h1 style={magicStyles.topseg}>
+            Certifications:
+          </Text>
+          <View>
+            <FlatList
+              data={certifications}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item}) => (
+                <View
+                  style={{
+                    height: 50,
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text> {item} </Text>
+                </View>
+              )}
+            />
+          </View>
+          <Button
+            style={magicStyles.container}
+            title="Edit Profile"
+            onPress={() => navigation.navigate('Edit Profile')}
+          />
+          <Footer style={surajStyles.footer} />
+        </>
+      )}
     </SafeAreaView>
   );
 }
+const surajStyles = StyleSheet.create({
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 70,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 3,
+    padding: 10,
+  },
+  button: {
+    backgroundColor: 'black',
+  },
+  container: {
+    height: 120,
+    flex: 1,
+    marginTop: 25,
+    marginHorizontal: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: 'lightblue',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 3,
+    color: 'white',
+  },
+  views: {
+    flex: 1,
+  },
+
+  texter: {
+    fontSize: 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
+});
+
 const magicStyles = StyleSheet.create({
   input: {
     margin: -5,

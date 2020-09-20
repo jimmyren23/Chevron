@@ -66,6 +66,7 @@
 		B3E13EEAED9F695E6744EA47 /* libPods-hackrice-hackriceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hackrice-hackriceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9BEAD1D743AF58E23577AB3 /* Pods-hackrice-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackrice-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-hackrice-tvOSTests/Pods-hackrice-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		C407305D25168CF400F21EEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C44F64D025179BE900DEA9E4 /* hackrice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = hackrice.entitlements; path = hackrice/hackrice.entitlements; sourceTree = "<group>"; };
 		DD649BA291CDB0B02F35E112 /* Pods-hackrice-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hackrice-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-hackrice-tvOSTests/Pods-hackrice-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -127,6 +128,7 @@
 		13B07FAE1A68108700A75B9A /* hackrice */ = {
 			isa = PBXGroup;
 			children = (
+				C44F64D025179BE900DEA9E4 /* hackrice.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -737,6 +739,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = hackrice/hackrice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = hackrice/Info.plist;
@@ -760,6 +763,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = hackrice/hackrice.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = hackrice/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

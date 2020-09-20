@@ -22,6 +22,7 @@ export function EditProfileView() {
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [shift, setShift] = useState('Morning');
+  const [error, setError] = useState();
   const {user} = useAuth();
   const navigation = useNavigation();
   useEffect(() => {
@@ -128,27 +129,39 @@ export function EditProfileView() {
               title="Submit Changes"
               style={magicStyles.container}
               onPress={() => {
-                navigation.navigate('Profile');
-                firestore()
-                  .collection('workers')
-                  .doc(name)
-                  .update({
-                    Certifications: certificates,
-                    Location: new firestore.GeoPoint(
-                      parseFloat(latitude),
-                      parseFloat(longitude),
-                    ),
-                    Shift: shift,
-                  })
-                  .then(() => {
-                    console.log('User updated!');
-                  });
+                if (
+                  parseFloat(longitude) >= -180 &&
+                  parseFloat(longitude) <= 180 &&
+                  parseFloat(latitude) >= -90 &&
+                  parseFloat(latitude) <= 90
+                ) {
+                  setError(null);
+                  navigation.navigate('Profile');
+                  firestore()
+                    .collection('workers')
+                    .doc(name)
+                    .update({
+                      Certifications: certificates,
+                      Location: new firestore.GeoPoint(
+                        parseFloat(latitude),
+                        parseFloat(longitude),
+                      ),
+                      Shift: shift,
+                    })
+                    .then(() => {
+                      console.log('User updated!');
+                    });
+                } else {
+                  console.log('no');
+                  setError('This position is not possible!');
+                }
               }}
             />
-            <Footer />
+            <Text style={magicStyles.error}>{error}</Text>
           </>
         )}
       </View>
+      <Footer />
     </SafeAreaView>
   );
 }
@@ -156,6 +169,13 @@ const magicStyles = StyleSheet.create({
   input: {
     margin: -5,
     marginHorizontal: 7,
+  },
+  error: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginVertical: 20,
+    fontStyle: 'italic',
+    color: 'red',
   },
   topseg: {
     textAlign: 'center',

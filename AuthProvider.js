@@ -10,7 +10,6 @@ const AuthContext = React.createContext(null);
 const AuthProvider = ({children}) => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
-
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
@@ -26,28 +25,17 @@ const AuthProvider = ({children}) => {
 
   // The log in function takes an email and password and uses the emailPassword
   // authentication provider to log in.
-  logIn = (email, password) => {
-    auth()
+  const logIn = async (email, password) => {
+    await auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
       });
   };
 
   // The register function takes an email and password and uses the emailPassword
   // authentication provider to register the user.
-  createUser = (
+  const createUser = async (
     email,
     password,
     shift,
@@ -57,7 +45,7 @@ const AuthProvider = ({children}) => {
     latitude,
     longitude,
   ) => {
-    auth()
+    await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
         console.log('User account created & signed in!');
@@ -76,22 +64,11 @@ const AuthProvider = ({children}) => {
           .then(() => {
             console.log('User added to the collection!');
           });
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
-
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
-
-        console.error(error);
       });
   };
 
   // Log out the current user.
-  logOut = () => {
+  const logOut = () => {
     auth()
       .signOut()
       .then(() => console.log('User signed out!'));

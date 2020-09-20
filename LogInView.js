@@ -21,6 +21,7 @@ export function LogInView() {
   const [certificates, setCertificates] = useState([]);
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
+  const [error, setError] = useState();
 
   function ToggleAuthModeComponent() {
     if (authMode === 'Login') {
@@ -30,6 +31,7 @@ export function LogInView() {
           title="Haven't created an account yet? Register"
           type="outline"
           onPress={() => {
+            setError(null);
             setAuthMode('Register');
           }}
         />
@@ -42,6 +44,7 @@ export function LogInView() {
             title="Have an account already? Login"
             type="outline"
             onPress={() => {
+              setError(null);
               setAuthMode('Login');
             }}
           />
@@ -162,9 +165,9 @@ export function LogInView() {
           <Button
             title={authMode}
             style={magicStyles.container}
-            onPress={() => {
+            onPress={async () => {
               if (authMode === 'Login') {
-                logIn(email, password);
+                await logIn(email, password);
               } else {
                 if (
                   parseFloat(longitude) >= -180 &&
@@ -172,17 +175,23 @@ export function LogInView() {
                   parseFloat(latitude) >= -90 &&
                   parseFloat(latitude) <= 90
                 ) {
-                  createUser(
-                    email,
-                    password,
-                    shift,
-                    firstName,
-                    lastName,
-                    certificates,
-                    latitude,
-                    longitude,
-                  );
+                  setError(null);
+                  try {
+                    await createUser(
+                      email,
+                      password,
+                      shift,
+                      firstName,
+                      lastName,
+                      certificates,
+                      latitude,
+                      longitude,
+                    );
+                  } catch (e) {
+                    setError(`Operation failed: ${e.message}`);
+                  }
                 } else {
+                  setError('This location is not possible');
                   console.log('not possible');
                 }
               }
@@ -203,6 +212,7 @@ export function LogInView() {
         </>
       )}
       <ToggleAuthModeComponent setAuthMode={setAuthMode} authMode={authMode} />
+      <Text style={magicStyles.error}>{error}</Text>
     </>
   );
 }
@@ -210,6 +220,13 @@ const magicStyles = StyleSheet.create({
   input: {
     margin:-5,
     marginHorizontal: 7,
+  },
+  error: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginVertical: 20,
+    fontStyle: 'italic',
+    color: 'red',
   },
   input2: {
     marginTop:15,

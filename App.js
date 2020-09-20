@@ -42,47 +42,4 @@ const App = () => {
   );
 };
 
-function WorkOrdersView({navigation}) {
-  const {user, logOut} = useAuth();
-  const usersCollection = firestore().collection('Users');
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {user == null ? (
-            <LogInView />
-          ) : (
-            <>
-              <WorkOrderView />
-              <Footer />
-            </>
-          )}
-        </View>
-      </SafeAreaView>
-    </>
-  );
-}
-
-//Separate page to add new post
-function CreateWorkOrderView({navigation}) {
-  const {user} = useAuth();
-
-  return (
-    <>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1}}>
-          {user == null ? (
-            <LogInView />
-          ) : (
-            <>
-              <AddWorkOrderView />
-              <Footer style={{marginBottom:10}}/>
-            </>
-          )}
-        </View>
-      </SafeAreaView>
-    </>
-  );
-}
 export default App;
